@@ -11,6 +11,10 @@
 # production
 /build
 
+/public/ads
+/public/covers
+/public/series
+
 # misc
 .DS_Store
 .env.local

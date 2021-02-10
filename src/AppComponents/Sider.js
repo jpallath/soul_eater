@@ -10,20 +10,38 @@ class Sider extends Component {
       notifications: 10,
       ads: ["target"],
     };
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose() {
+    this.props.triggerMenu();
   }
   render() {
+    let { additionalClass } = this.props;
     return (
       <Router>
-        <ul className="sidebar">
-          <li>
-            <Link to="/">
-              <h1>{this.state.userName}</h1>
-            </Link>
-          </li>
-          <li>Favorites: {this.state.favorites.length}</li>
-          <li>Notifications {this.state.notifications}</li>
-          <img src="/ads/target.jpg" alt="" />
-        </ul>
+        <div
+          className={
+            additionalClass === true ? "sidebar-hidden" : "sidebar-shown"
+          }
+        >
+          <nav>
+            <div>
+              <Link to="/" className="seibuu-home">
+                <h1>Seibuu {additionalClass}</h1>
+              </Link>
+            </div>
+            <div className="sidebar_nav">
+              <Link to="/">
+                <h3>{this.state.userName}</h3>
+              </Link>
+              <Link to="/">Notifications</Link>
+            </div>
+          </nav>
+          <div className="close_sidebar" onClick={this.handleClose}>
+            X
+          </div>
+        </div>
       </Router>
     );
   }

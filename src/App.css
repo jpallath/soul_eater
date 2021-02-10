@@ -2,76 +2,152 @@ html,
 body,
 #root,
 .App {
-  display: flex;
   background: gray;
   width: 100%;
   height: 100%;
 }
 
-.sidebar {
-  height: 120%;
-  min-width: 200px;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: red;
-  overflow: hidden;
-  padding-top: 20px;
-  margin: 0;
-  flex-grow: 5;
+.sidebar-shown {
+  position: fixed;
+  height: 100%;
+  background: black;
+  width: 30%;
+  display: flex;
+  left: 0%;
+  transition: all 0.25s ease-in;
+}
+
+.sidebar-hidden {
+  position: fixed;
+  height: 100%;
+  background: red;
+  width: 30%;
+  display: flex;
+  left: -25%;
+  transition: all 0.25s ease-in;
+}
+
+.sidebar-shown nav,
+.sidebar-hidden nav {
+  width: 90%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.sidebar li {
-  list-style: none;
-}
-
-.sidebar img {
-  margin: 50% 50%;
-  width: 50%;
-  height: 30%;
-  align-self: flex-end;
+.close_sidebar {
+  width: 10%;
+  height: 100%;
+  background: white;
+  text-align: center;
 }
 
 .content {
-  height: 120%;
-  padding: 15px 15px;
-  background: black;
-  flex-grow: 95;
-  display: flex;
+  height: 100%;
+  width: 90%;
+  padding: 0 5%;
   overflow: hidden;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .ab_the_fold.grid {
-  margin: 1%;
-  padding: 4%;
+  padding: 0 5%;
+  width: 90%;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  height: 40%;
 }
 
 .manga-window {
-  display: flex;
-  flex-direction: column;
   width: 30%;
-  color: white;
+  height: 50%;
+}
+
+.manga-window a {
+  display: flex;
+  margin: 10px;
   align-items: center;
   justify-content: center;
-  /* border: 1px solid white; */
-  padding: 1%;
+  flex-direction: column;
   text-align: center;
 }
-img {
-  width: 40%;
-  height: 50%;
+
+.manga-window img {
+  width: 20%;
+  height: auto;
+  margin-right: 10%;
 }
 
 a {
   text-decoration: none;
   color: white;
+}
+
+.manga-viewer {
+  background: black;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.manga-container {
+  flex-grow: 95;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.manga-container img {
+  max-width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.manga-container img {
+  width: 50%;
+}
+
+.manga-panel-right {
+  position: relative;
+  right: 100%;
+  display: none;
+}
+
+.manga-panel-center {
+  position: relative;
+  right: 0%;
+  left: 0%;
+  display: block;
+}
+
+.manga-panel-left {
+  position: relative;
+  left: 100%;
+  display: none;
+}
+
+.manga-pager {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  flex-grow: 5;
+  margin: 1%;
+}
+.manga-pager div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: white 1px solid;
+  height: 50%;
+  width: 100%;
 }
 
 /* @keyframes App-logo-spin {

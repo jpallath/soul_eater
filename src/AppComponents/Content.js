@@ -1,13 +1,14 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// rewrite this using hardcoded images.
+// All images should be just 200x200 and work from there
 
-import Sider from "./Sider";
+import { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      aboveTheFold: [
+      aboveTheFold1: [
         {
           series: "One Piece",
           chunkyName: "onepiece",
@@ -29,6 +30,8 @@ class Content extends Component {
           iconCover: "/covers/dragonball_0001.png",
           numberedChapter: "0001",
         },
+      ],
+      aboveTheFold2: [
         {
           series: "Naruto",
           chunkyName: "naruto",
@@ -54,7 +57,18 @@ class Content extends Component {
     };
   }
   render() {
-    let AbTFo = this.state.aboveTheFold.map((series, index) => {
+    let AbTFo1 = this.state.aboveTheFold1.map((series, index) => {
+      return (
+        <div className="ab_the_fold manga-window" key={index}>
+          <Link to={`series/${series.chunkyName}/${series.numberedChapter}`}>
+            <p>{series.series}</p>
+            <img src={series.iconCover} alt="" />
+            <p>{series.chapter}</p>
+          </Link>
+        </div>
+      );
+    });
+    let AbTFo2 = this.state.aboveTheFold2.map((series, index) => {
       return (
         <div className="ab_the_fold manga-window" key={index}>
           <Link to={`series/${series.chunkyName}/${series.numberedChapter}`}>
@@ -66,9 +80,9 @@ class Content extends Component {
     });
     return (
       <>
-        <Sider />
         <div className="content">
-          <div className="ab_the_fold grid">{AbTFo}</div>
+          <div className="ab_the_fold grid">{AbTFo1}</div>
+          <div className="ab_the_fold grid">{AbTFo2}</div>
         </div>
       </>
     );

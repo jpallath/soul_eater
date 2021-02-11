@@ -18,6 +18,16 @@ class Sider extends Component {
   }
   render() {
     let { additionalClass } = this.props;
+    let sidebarButton =
+      additionalClass === false ? (
+        <div className="close_sidebar" onClick={this.handleClose}>
+          X
+        </div>
+      ) : (
+        <div className="close_sidebar" onClick={this.handleClose}>
+          📚
+        </div>
+      );
     return (
       <Router>
         <div
@@ -38,9 +48,7 @@ class Sider extends Component {
               <Link to="/">Notifications</Link>
             </div>
           </nav>
-          <div className="close_sidebar" onClick={this.handleClose}>
-            X
-          </div>
+          {sidebarButton}
         </div>
       </Router>
     );

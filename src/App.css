@@ -10,7 +10,7 @@ body,
 .sidebar-shown {
   position: fixed;
   height: 100%;
-  background: black;
+  background: red;
   width: 30%;
   display: flex;
   left: 0%;
@@ -20,7 +20,7 @@ body,
 .sidebar-hidden {
   position: fixed;
   height: 100%;
-  background: red;
+  background: black;
   width: 30%;
   display: flex;
   left: -25%;

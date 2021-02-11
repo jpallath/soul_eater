@@ -13,21 +13,21 @@ class Content extends Component {
           series: "One Piece",
           chunkyName: "onepiece",
           chapter: "Romance Dawn The Dawn of Adventure",
-          iconCover: "/covers/onepiece_0001.png",
+          iconCover: "/covers/one_piece_icon.jpg",
           numberedChapter: "0001",
         },
         {
           series: "Shaman King",
           chunkyName: "shamanking",
           chapter: "The Boy Who Dances with Ghost",
-          iconCover: "/covers/shamanking_0001.png",
+          iconCover: "/covers/shaman_king_icon.jpg",
           numberedChapter: "0001",
         },
         {
           series: "Dragonball",
           chunkyName: "dragonball",
           chapter: "Bloomers and the Monkey King",
-          iconCover: "/covers/dragonball_0001.png",
+          iconCover: "/covers/dargon_ball_icon.jpg",
           numberedChapter: "0001",
         },
       ],
@@ -36,21 +36,21 @@ class Content extends Component {
           series: "Naruto",
           chunkyName: "naruto",
           chapter: "Uzumaki Naruto",
-          iconCover: "/covers/naruto_0001.png",
+          iconCover: "/covers/naruto_icon.jpg",
           numberedChapter: "0001",
         },
         {
           series: "Soul Eater",
           chunkyName: "souleater",
           chapter: "Soul Eater",
-          iconCover: "/covers/souleater_0001.png",
+          iconCover: "/covers/souleater_icon.png",
           numberedChapter: "0001",
         },
         {
           series: "Inuyasha",
           chunkyName: "inuyasha",
           chapter: "The Sealed Away Boy",
-          iconCover: "/covers/inuyasha_0001.png",
+          iconCover: "/covers/inuyasha_icon.png",
           numberedChapter: "0001",
         },
       ],
@@ -61,9 +61,11 @@ class Content extends Component {
       return (
         <div className="ab_the_fold manga-window" key={index}>
           <Link to={`series/${series.chunkyName}/${series.numberedChapter}`}>
-            <p>{series.series}</p>
             <img src={series.iconCover} alt="" />
-            <p>{series.chapter}</p>
+            <div className="series_data">
+              <p>{series.series}</p>
+              <p>{series.chapter}</p>
+            </div>
           </Link>
         </div>
       );
@@ -73,7 +75,10 @@ class Content extends Component {
         <div className="ab_the_fold manga-window" key={index}>
           <Link to={`series/${series.chunkyName}/${series.numberedChapter}`}>
             <img src={series.iconCover} alt="" />
-            <p>{series.chapter}</p>
+            <div className="series_data">
+              <p>{series.series}</p>
+              <p>{series.chapter}</p>
+            </div>
           </Link>
         </div>
       );

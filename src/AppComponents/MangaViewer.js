@@ -19,6 +19,7 @@ class MangaViewer extends Component {
       panelPages: [
         "/series/one_piece/0001/mobile/page_0001_panel_0001.png",
         "/series/one_piece/0001/mobile/page_0001_panel_0002.png",
+        "/series/one_piece/0001/mobile/page_0002_panel_0001.png",
       ],
       currentPage: 0,
     };
@@ -35,32 +36,23 @@ class MangaViewer extends Component {
     let panels = this.state.panelPages.map((panel, index) => {
       if (this.state.currentPage > index) {
         return (
-          <img
-            key={index}
-            src={panel}
-            className="manga-panel-left"
-            alt="testing"
-          />
+          <div className="manga-panel-left">
+            <img key={index} src={panel} alt="testing" />
+          </div>
         );
       }
       if (this.state.currentPage === index) {
         return (
-          <img
-            key={index}
-            src={panel}
-            className="manga-panel-center"
-            alt="testing"
-          />
+          <div className="manga-panel-center">
+            <img key={index} src={panel} alt="testing" />
+          </div>
         );
       }
       if (this.state.currentPage < index) {
         return (
-          <img
-            key={index}
-            src={panel}
-            className="manga-panel-right"
-            alt="testing"
-          />
+          <div className="manga-panel-right">
+            <img key={index} src={panel} alt="testing" />
+          </div>
         );
       } else {
         return null;

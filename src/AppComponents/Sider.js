@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Sider extends Component {
   constructor(props) {
@@ -29,28 +29,26 @@ class Sider extends Component {
         </div>
       );
     return (
-      <Router>
-        <div
-          className={
-            additionalClass === true ? "sidebar-hidden" : "sidebar-shown"
-          }
-        >
-          <nav>
-            <div>
-              <Link to="/" className="seibuu-home">
-                <h1>Seibuu {additionalClass}</h1>
-              </Link>
-            </div>
-            <div className="sidebar_nav">
-              <Link to="/">
-                <h3>{this.state.userName}</h3>
-              </Link>
-              <Link to="/">Notifications</Link>
-            </div>
-          </nav>
-          {sidebarButton}
-        </div>
-      </Router>
+      <div
+        className={
+          additionalClass === true ? "sidebar-hidden" : "sidebar-shown"
+        }
+      >
+        <nav>
+          <div>
+            <Link to="/" className="seibuu-home">
+              <h1>Seibuu {additionalClass}</h1>
+            </Link>
+          </div>
+          <div className="sidebar_nav">
+            <Link to={"/users/" + this.state.userName}>
+              <h3>{this.state.userName}</h3>
+            </Link>
+            <Link to="/">Notifications</Link>
+          </div>
+        </nav>
+        {sidebarButton}
+      </div>
     );
   }
 }

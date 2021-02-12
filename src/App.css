@@ -8,6 +8,7 @@ body,
 }
 
 .sidebar-shown {
+  z-index: 10;
   position: fixed;
   height: 100%;
   background: red;
@@ -18,6 +19,7 @@ body,
 }
 
 .sidebar-hidden {
+  z-index: 10;
   position: fixed;
   height: 100%;
   background: black;
@@ -44,9 +46,9 @@ body,
 }
 
 .content {
-  height: 100%;
+  height: 98%;
   width: 90%;
-  padding: 0 5%;
+  padding: 1% 5%;
   overflow: hidden;
   background-color: black;
   display: flex;
@@ -64,7 +66,7 @@ body,
 
 .manga-window {
   width: 30%;
-  height: 50%;
+  height: 100%;
 }
 
 .manga-window a {
@@ -74,12 +76,32 @@ body,
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  width: 90%;
+  height: 100%;
+  position: relative;
 }
 
 .manga-window img {
-  width: 20%;
+  width: 90%;
   height: auto;
   margin-right: 10%;
+}
+
+.series_data {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.series_data p {
+  background: black;
+  width: 100%;
+  margin: 0.5px 0;
+  opacity: 75%;
+  text-align: center;
 }
 
 a {
@@ -103,33 +125,54 @@ a {
   overflow: hidden;
 }
 
-.manga-container img {
+/* .manga-container img {
   max-width: 100%;
   height: auto;
   overflow: hidden;
-}
-
-.manga-container img {
-  width: 50%;
-}
+} */
 
 .manga-panel-right {
   position: relative;
-  right: 100%;
-  display: none;
+  right: 0%;
+  left: 0%;
+  display: flex;
+  transition: all 0.2s ease-in;
+  align-items: center;
+  justify-content: center;
+  width: 0%;
+  overflow: hidden;
 }
 
 .manga-panel-center {
   position: relative;
   right: 0%;
   left: 0%;
-  display: block;
+  display: flex;
+  transition: all 0.2s ease-in;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
 }
 
 .manga-panel-left {
   position: relative;
-  left: 100%;
-  display: none;
+  right: 0%;
+  left: 0%;
+  display: flex;
+  transition: all 0.2s ease-in;
+  width: 0%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.manga-panel-left img,
+.manga-panel-center img,
+.manga-panel-cright img {
+  max-width: 50%;
+  height: auto;
+  overflow: hidden;
 }
 
 .manga-pager {

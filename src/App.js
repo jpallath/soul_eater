@@ -16,17 +16,21 @@ class App extends Component {
   handleChange() {
     this.setState({ triggerMenu: !this.state.triggerMenu });
   }
+
   render() {
     return (
       <div className="App">
-        <Sider
-          triggerMenu={this.handleChange}
-          additionalClass={this.state.triggerMenu}
-        />
         <Router>
+          <Sider
+            triggerMenu={this.handleChange}
+            additionalClass={this.state.triggerMenu}
+          />
           <Switch>
             <Route path="/" exact>
               <Content />
+            </Route>
+            <Route path="/users/:user">
+              <div>testing</div>
             </Route>
             <Route path="/series/:chunkyName/:chapter">
               <MangaViewer />

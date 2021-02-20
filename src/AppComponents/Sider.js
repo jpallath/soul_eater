@@ -37,13 +37,14 @@ class Sider extends Component {
         <nav>
           <div>
             <Link to="/" className="seibuu-home">
-              <h1>Seibuu {additionalClass}</h1>
+              <h1>Seibu {additionalClass}</h1>
             </Link>
           </div>
           <div className="sidebar_nav">
             <Link to={"/users/" + this.state.userName}>
-              <h3>{this.state.userName}</h3>
+              {this.state.userName}
             </Link>
+            <Link to="/create">Create</Link>
             <Link to="/">Notifications</Link>
           </div>
         </nav>

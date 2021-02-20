@@ -1,6 +1,7 @@
 import Content from "./AppComponents/Content";
 import MangaViewer from "./AppComponents/MangaViewer";
 import Sider from "./AppComponents/Sider";
+import Create from "./AppComponents/Create";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { Component } from "react";
@@ -13,6 +14,7 @@ class App extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange() {
     this.setState({ triggerMenu: !this.state.triggerMenu });
   }
@@ -29,12 +31,14 @@ class App extends Component {
             <Route path="/" exact>
               <Content />
             </Route>
-            <Route path="/users/:user">
-              <div>testing</div>
+            <Route path="/create">
+              <Create />
             </Route>
-            <Route path="/series/:chunkyName/:chapter">
-              <MangaViewer />
-            </Route>
+            <Route path="/users/:user"></Route>
+            <Route
+              path="/series/:chunkyName/:chapter"
+              render={(props) => <MangaViewer {...props} />}
+            />
           </Switch>
         </Router>
       </div>

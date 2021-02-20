@@ -1,30 +1,22 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class MangaViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullPages: [
-        "/series/one_piece/0001/desktop/page__0001.png",
-        "/series/one_piece/0001/desktop/page_0002",
-        "/series/one_piece/0001/desktop/page_0003",
-        "/series/one_piece/0001/desktop/page_0004",
-        "/series/one_piece/0001/desktop/page_0005",
-        "/series/one_piece/0001/desktop/page_0006",
-        "/series/one_piece/0001/desktop/page_0007",
-        "/series/one_piece/0001/desktop/page_0008",
-        "/series/one_piece/0001/desktop/page_0009",
-        "/series/one_piece/0001/desktop/page_0010",
-      ],
-      panelPages: [
-        "/series/one_piece/0001/mobile/page_0001_panel_0001.png",
-        "/series/one_piece/0001/mobile/page_0001_panel_0002.png",
-        "/series/one_piece/0001/mobile/page_0002_panel_0001.png",
-      ],
+      mangaka: "",
+      series: "",
+      fullPages: [],
       currentPage: 0,
     };
     this.goForward = this.goForward.bind(this);
     this.goBackward = this.goBackward.bind(this);
+    this.handleDirection = this.handleDirection.bind(this);
+    this.handleEvent = this.handleEvent.bind(this);
+  }
+  handleEvent(event) {
+    console.log(event);
   }
   goForward() {
     this.setState({ currentPage: this.state.currentPage + 1 });
@@ -32,26 +24,61 @@ class MangaViewer extends Component {
   goBackward() {
     this.setState({ currentPage: this.state.currentPage - 1 });
   }
+  handleDirection(event) {
+    if (event.key === "ArrowRight") {
+      this.goBackward();
+    }
+    if (event.key === "ArrowLeft") {
+      this.goForward();
+    }
+  }
+  fetchChapterJson = async (chunkyName, chapter) => {
+    try {
+      const response = await axios.get(
+        `https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/series/${chunkyName}/chapter/${chapter}`
+      );
+      let { mangaka, series, fullPages } = response.data.body;
+      this.setState({ mangaka, series, fullPages });
+    } catch (err) {}
+  };
+  componentDidMount() {
+    let { chunkyName, chapter } = this.props.match.params;
+    this.fetchChapterJson(chunkyName, chapter);
+    document.addEventListener("keydown", this.handleDirection);
+  }
   render() {
-    let panels = this.state.panelPages.map((panel, index) => {
-      if (this.state.currentPage > index) {
+    let fullpages = this.state.fullPages.map((fullpage, index) => {
+      if (this.state.currentPage < index) {
         return (
-          <div className="manga-panel-left">
-            <img key={index} src={panel} alt="testing" />
+          <div className="manga-panel-left" key={index}>
+            <img
+              src={"https://d1ttoszco3sayb.cloudfront.net" + fullpage}
+              alt="testing"
+            />
           </div>
         );
       }
       if (this.state.currentPage === index) {
         return (
-          <div className="manga-panel-center">
-            <img key={index} src={panel} alt="testing" />
+          <div
+            className="manga-panel-center"
+            key={index}
+            onTouchMove={this.handleEvent}
+          >
+            <img
+              src={"https://d1ttoszco3sayb.cloudfront.net" + fullpage}
+              alt="testing"
+            />
           </div>
         );
       }
-      if (this.state.currentPage < index) {
+      if (this.state.currentPage > index) {
         return (
-          <div className="manga-panel-right">
-            <img key={index} src={panel} alt="testing" />
+          <div className="manga-panel-right" key={index}>
+            <img
+              src={"https://d1ttoszco3sayb.cloudfront.net" + fullpage}
+              alt="testing"
+            />
           </div>
         );
       } else {
@@ -60,10 +87,10 @@ class MangaViewer extends Component {
     });
     return (
       <div className="manga-viewer">
-        <div className="manga-container">{panels}</div>
+        <div className="manga-container">{fullpages}</div>
         <div className="manga-pager">
-          <div onClick={this.goForward}> ⏪ </div>
-          <div onClick={this.goBackward}> ⏩ </div>
+          <div onClick={this.goForward}> ⏩ </div>
+          <div onClick={this.goBackward}> ⏪ </div>
         </div>
       </div>
     );

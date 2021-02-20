@@ -11,14 +11,14 @@ class Content extends Component {
       aboveTheFold1: [
         {
           series: "One Piece",
-          chunkyName: "onepiece",
+          chunkyName: "one_piece",
           chapter: "Romance Dawn The Dawn of Adventure",
           iconCover: "/covers/one_piece_icon.jpg",
           numberedChapter: "0001",
         },
         {
           series: "Shaman King",
-          chunkyName: "shamanking",
+          chunkyName: "shaman_king",
           chapter: "The Boy Who Dances with Ghost",
           iconCover: "/covers/shaman_king_icon.jpg",
           numberedChapter: "0001",
@@ -73,7 +73,10 @@ class Content extends Component {
     let AbTFo2 = this.state.aboveTheFold2.map((series, index) => {
       return (
         <div className="ab_the_fold manga-window" key={index}>
-          <Link to={`series/${series.chunkyName}/${series.numberedChapter}`}>
+          <Link
+            to={`series/${series.chunkyName}/${series.numberedChapter}`}
+            params={series.chunkyName}
+          >
             <img src={series.iconCover} alt="" />
             <div className="series_data">
               <p>{series.series}</p>

@@ -8,9 +8,14 @@ class Create extends Component {
       series: ["One Piece", "Naruto", "Dragon Ball"],
       selectedFiles: [],
       selectedSeries: "",
+      title: "",
+      description: "",
     };
     this.handleFileInput = this.handleFileInput.bind(this);
     this.onSelectSeries = this.onSelectSeries.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
   }
   handleFileInput = (files) => {
     files = Object.entries(files);
@@ -25,6 +30,15 @@ class Create extends Component {
   };
   onSelectSeries = (sery) => {
     this.setState({ selectedSeries: sery });
+  };
+  handleTitleChange = (e) => this.setState({ title: e.target.value });
+  handleDescriptionChange = (e) =>
+    this.setState({ description: e.target.value });
+  handleUpload = () => {
+    let { selectedFiles, selectedSeries, title, description } = this.state;
+    console.log(selectedSeries);
+    console.log(title);
+    console.log(description);
   };
   render() {
     let { selectedFiles, series } = this.state;
@@ -71,11 +85,14 @@ class Create extends Component {
       }
       let previews = selectedFiles.map((file) => {
         return (
-          <img
-            src={file.source}
-            key={file.fileData.name}
-            alt={file.fileData.name}
-          />
+          <div className="upload_preview">
+            <img
+              src={file.source}
+              key={file.fileData.name}
+              alt={file.fileData.name}
+            />
+            <p>{file.fileData.name}</p>
+          </div>
         );
       });
       FilesComponent = (
@@ -85,7 +102,13 @@ class Create extends Component {
             <div>{seriesList}</div>
             <div>
               <label htmlFor="title">Title</label>
-              <input type="text" name="title" id="title" />
+              <input
+                type="text"
+                name="title"
+                id="title"
+                value={this.state.title}
+                onChange={this.handleTitleChange}
+              />
             </div>
             <div>
               <textarea
@@ -93,10 +116,12 @@ class Create extends Component {
                 id="description"
                 cols="30"
                 rows="10"
+                value={this.state.description}
+                onChange={this.handleDescriptionChange}
               ></textarea>
             </div>
           </div>
-          <button onClick="handleUpload">Upload</button>
+          <button onClick={this.handleUpload}>Upload</button>
         </div>
       );
     }

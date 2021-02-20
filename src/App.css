@@ -204,6 +204,10 @@ a {
   width: 100%;
 }
 
+.manga-pager div:hover {
+  cursor: pointer;
+}
+
 .manga-panel-left img,
 .manga-panel-center img,
 .manga-panel-right img {
@@ -300,6 +304,10 @@ a {
   justify-content: space-between;
   width: 90%;
   margin-top: 0.5%;
+}
+
+.upload_preview p {
+  color: black;
 }
 
 .series_list .active {

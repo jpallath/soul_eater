@@ -25,7 +25,11 @@ class Create extends Component {
     let newSeries = baseSeries.filter((serie) =>
       serie.toLowerCase().includes(seriesText)
     );
-    this.setState({ series: newSeries });
+    if (newSeries.length < 1) {
+      this.setState({ series: baseSeries });
+    } else {
+      this.setState({ series: newSeries });
+    }
   };
   seriesSelect = (serie) => {
     console.log(serie);
@@ -89,16 +93,18 @@ class Create extends Component {
     } else {
       let seriesList = null;
       if (series.length > 0) {
-        seriesList = <Autocomplete series={series} />;
+        seriesList = (
+          <Autocomplete
+            series={series}
+            seriesChange={this.handleSeriesUpdate}
+            seriesSelect={this.seriesSelect}
+          />
+        );
       }
       let previews = selectedFiles.map((file) => {
         return (
-          <div className="upload_preview">
-            <img
-              src={file.source}
-              key={file.fileData.name}
-              alt={file.fileData.name}
-            />
+          <div className="upload_preview" key={file.fileData.name}>
+            <img src={file.source} alt={file.fileData.name} />
             <p>{file.fileData.name}</p>
           </div>
         );
@@ -133,16 +139,7 @@ class Create extends Component {
         </div>
       );
     }
-    return (
-      <div className="content">
-        <Autocomplete
-          series={series}
-          seriesChange={this.handleSeriesUpdate}
-          seriesSelect={this.seriesSelect}
-        />
-        {FilesComponent}
-      </div>
-    );
+    return <div className="content">{FilesComponent}</div>;
   }
 }
 

@@ -1,10 +1,12 @@
 import { Component } from "react";
-// import axios from "axios";
+import axios from "axios";
+import Autocomplete from "./CreateComponents/Autocomplete";
 
 class Create extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      baseSeries: ["One Piece", "Naruto", "Dragon Ball"],
       series: ["One Piece", "Naruto", "Dragon Ball"],
       selectedFiles: [],
       selectedSeries: "",
@@ -17,6 +19,17 @@ class Create extends Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
   }
+  handleSeriesUpdate = (seriesText) => {
+    seriesText = seriesText.toLowerCase();
+    let { baseSeries } = this.state;
+    let newSeries = baseSeries.filter((serie) =>
+      serie.toLowerCase().includes(seriesText)
+    );
+    this.setState({ series: newSeries });
+  };
+  seriesSelect = (serie) => {
+    console.log(serie);
+  };
   handleFileInput = (files) => {
     files = Object.entries(files);
     let fileSources = files.map((file) => {
@@ -36,9 +49,29 @@ class Create extends Component {
     this.setState({ description: e.target.value });
   handleUpload = () => {
     let { selectedFiles, selectedSeries, title, description } = this.state;
-    console.log(selectedSeries);
-    console.log(title);
-    console.log(description);
+    selectedFiles.forEach((file) => {
+      axios
+        .post(
+          "https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/chapter",
+          {
+            filename: file.fileData.name,
+            fileType: file.fileData.type,
+          }
+        )
+        .then((response) => {
+          let name = file.fileData.name;
+          let options = {
+            headers: { "Content-Type": file.fileData.type },
+          };
+          let endpoint = response.data.body.signed_url;
+          axios
+            .put(endpoint, name, options)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => console.log(err));
+        });
+    });
   };
   render() {
     let { selectedFiles, series } = this.state;
@@ -56,32 +89,7 @@ class Create extends Component {
     } else {
       let seriesList = null;
       if (series.length > 0) {
-        let Series = series.map((sery) => {
-          return (
-            <li
-              onClick={() => this.onSelectSeries(sery)}
-              key={sery}
-              className={this.state.selectedSeries === sery ? "active" : null}
-            >
-              {sery}
-            </li>
-          );
-        });
-        seriesList = (
-          <div className="series_list">
-            {Series}
-            {
-              <li
-                onClick={() => this.onSelectSeries("blank")}
-                className={
-                  this.state.selectedSeries === "blank" ? "active" : null
-                }
-              >
-                No Series
-              </li>
-            }
-          </div>
-        );
+        seriesList = <Autocomplete series={series} />;
       }
       let previews = selectedFiles.map((file) => {
         return (
@@ -125,7 +133,16 @@ class Create extends Component {
         </div>
       );
     }
-    return <div className="content">{FilesComponent}</div>;
+    return (
+      <div className="content">
+        <Autocomplete
+          series={series}
+          seriesChange={this.handleSeriesUpdate}
+          seriesSelect={this.seriesSelect}
+        />
+        {FilesComponent}
+      </div>
+    );
   }
 }
 

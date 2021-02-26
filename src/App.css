@@ -108,7 +108,7 @@ body,
   margin: 0.5px 0;
   opacity: 75%;
   text-align: center;
-  font-size: 50%;
+  font-size: 100%;
   border: 1px solid white;
 }
 
@@ -264,6 +264,9 @@ a {
   .manga-panel-right img {
     max-width: 420px;
   } /* smartphones, iPhone, portrait 480x320 phones */
+  .manga-series p {
+    font-size: 50%;
+  }
 }
 @media (min-width: 961px) {
   .manga-panel-left img,
@@ -271,6 +274,9 @@ a {
   .manga-panel-right img {
     max-width: 800px;
   } /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .manga-series p {
+    font-size: 50%;
+  }
 }
 @media (min-width: 1025px) {
   .manga-panel-left img,

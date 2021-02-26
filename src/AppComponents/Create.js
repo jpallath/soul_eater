@@ -6,6 +6,7 @@ class Create extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: "pallethechu",
       baseSeries: ["One Piece", "Naruto", "Dragon Ball"],
       series: ["One Piece", "Naruto", "Dragon Ball"],
       selectedFiles: [],
@@ -32,7 +33,10 @@ class Create extends Component {
     }
   };
   seriesSelect = (serie) => {
-    console.log(serie);
+    this.setState({ selectedSeries: serie });
+  };
+  seriesBlurred = (serie) => {
+    this.setState({ selectedSeries: serie });
   };
   handleFileInput = (files) => {
     files = Object.entries(files);
@@ -53,6 +57,7 @@ class Create extends Component {
     this.setState({ description: e.target.value });
   handleUpload = () => {
     let { selectedFiles, selectedSeries, title, description } = this.state;
+    // before we upload each file to s3 we need to set up database space of the new series/chapter
     selectedFiles.forEach((file) => {
       axios
         .post(
@@ -98,6 +103,7 @@ class Create extends Component {
             series={series}
             seriesChange={this.handleSeriesUpdate}
             seriesSelect={this.seriesSelect}
+            seriesBlurred={this.seriesBlurred}
           />
         );
       }

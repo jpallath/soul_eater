@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import configData from "../config.json";
 
 class MangaViewer extends Component {
   constructor(props) {
@@ -35,10 +36,11 @@ class MangaViewer extends Component {
   fetchChapterJson = async (chunkyName, chapter) => {
     try {
       const response = await axios.get(
-        `https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/series/${chunkyName}/chapter/${chapter}`
+        "https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/chapter?chapter_id=avbie1239ajbe"
       );
-      let { mangaka, series, fullPages } = response.data.body;
-      this.setState({ mangaka, series, fullPages });
+      console.log(response);
+      let { mangaka, series_name, pages } = response.data.data;
+      this.setState({ mangaka, series_name, fullPages: pages });
     } catch (err) {}
   };
   componentDidMount() {
@@ -51,10 +53,7 @@ class MangaViewer extends Component {
       if (this.state.currentPage < index) {
         return (
           <div className="manga-panel-left" key={index}>
-            <img
-              src={"https://d1ttoszco3sayb.cloudfront.net" + fullpage}
-              alt="testing"
-            />
+            <img src={`${configData.FETCHTRAIL}` + fullpage} alt="testing" />
           </div>
         );
       }
@@ -65,20 +64,14 @@ class MangaViewer extends Component {
             key={index}
             onTouchMove={this.handleEvent}
           >
-            <img
-              src={"https://d1ttoszco3sayb.cloudfront.net" + fullpage}
-              alt="testing"
-            />
+            <img src={`${configData.FETCHTRAIL}` + fullpage} alt="testing" />
           </div>
         );
       }
       if (this.state.currentPage > index) {
         return (
           <div className="manga-panel-right" key={index}>
-            <img
-              src={"https://d1ttoszco3sayb.cloudfront.net" + fullpage}
-              alt="testing"
-            />
+            <img src={`${configData.FETCHTRAIL}` + fullpage} alt="testing" />
           </div>
         );
       } else {

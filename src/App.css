@@ -295,6 +295,7 @@ a {
 
 .upload_container img {
   margin: 1%;
+  width: 140px;
 }
 .upload_container {
   width: 90%;

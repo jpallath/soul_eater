@@ -55,20 +55,37 @@ class Create extends Component {
   handleTitleChange = (e) => this.setState({ title: e.target.value });
   handleDescriptionChange = (e) =>
     this.setState({ description: e.target.value });
-  handleUpload = () => {
-    let { selectedFiles, selectedSeries, title, description } = this.state;
+  handleUpload = async () => {
+    let { selectedFiles, selectedSeries, title, user } = this.state;
     // before we upload each file to s3 we need to set up database space of the new series/chapter
-    selectedFiles.forEach((file) => {
+    let s3Sync = await axios.post(
+      "https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/chapter-data",
+      {
+        id: "avbie1239ajbe",
+        chapter: title,
+        mangaka: user,
+        mangaka_id: "pallethechu_id",
+        series_name: selectedSeries,
+        series_id: "one_piece_id",
+        path: "xyz",
+        numberOfPages: selectedFiles.length,
+      }
+    );
+    selectedFiles.forEach((file, index) => {
+      index = (index + 1).toString();
+      while (index.length < 4) {
+        index = 0 + index;
+      }
       axios
         .post(
           "https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/chapter",
           {
-            filename: file.fileData.name,
+            filename: s3Sync.data.path + "/" + index + ".png",
             fileType: file.fileData.type,
           }
         )
         .then((response) => {
-          let name = file.fileData.name;
+          let name = file.fileData;
           let options = {
             headers: { "Content-Type": file.fileData.type },
           };

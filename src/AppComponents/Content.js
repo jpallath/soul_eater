@@ -3,6 +3,7 @@
 
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import configData from "../config.json";
 
 class Content extends Component {
   constructor(props) {
@@ -13,23 +14,21 @@ class Content extends Component {
           series: "One Piece",
           chunkyName: "one_piece",
           chapter: "Romance Dawn The Dawn of Adventure",
-          iconCover: "https://d5dplrzteyoni.cloudfront.net/one_piece_icon.jpg",
+          iconCover: `${configData.CLOUDTRAIL}/one_piece_icon.jpg`,
           numberedChapter: "0001",
         },
         {
           series: "Shaman King",
           chunkyName: "shaman_king",
           chapter: "The Boy Who Dances with Ghost",
-          iconCover:
-            "https://d5dplrzteyoni.cloudfront.net/shaman_king_icon.jpg",
+          iconCover: `${configData.CLOUDTRAIL}/shaman_king_icon.jpg`,
           numberedChapter: "0001",
         },
         {
           series: "Dragonball",
           chunkyName: "dragonball",
           chapter: "Bloomers and the Monkey King",
-          iconCover:
-            "https://d5dplrzteyoni.cloudfront.net/dargon_ball_icon.jpg",
+          iconCover: `${configData.CLOUDTRAIL}/dargon_ball_icon.jpg`,
           numberedChapter: "0001",
         },
       ],
@@ -38,21 +37,21 @@ class Content extends Component {
           series: "Naruto",
           chunkyName: "naruto",
           chapter: "Uzumaki Naruto",
-          iconCover: "https://d5dplrzteyoni.cloudfront.net/naruto_icon.jpg",
+          iconCover: `${configData.CLOUDTRAIL}/naruto_icon.jpg`,
           numberedChapter: "0001",
         },
         {
           series: "Soul Eater",
           chunkyName: "souleater",
           chapter: "Soul Eater",
-          iconCover: "https://d5dplrzteyoni.cloudfront.net/souleater_icon.png",
+          iconCover: `${configData.CLOUDTRAIL}/souleater_icon.png`,
           numberedChapter: "0001",
         },
         {
           series: "Inuyasha",
           chunkyName: "inuyasha",
           chapter: "The Sealed Away Boy",
-          iconCover: "https://d5dplrzteyoni.cloudfront.net/inuyasha_icon.png",
+          iconCover: `${configData.CLOUDTRAIL}/inuyasha_icon.png`,
           numberedChapter: "0001",
         },
       ],

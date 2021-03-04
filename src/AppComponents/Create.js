@@ -61,7 +61,6 @@ class Create extends Component {
     let s3Sync = await axios.post(
       "https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/chapter-data",
       {
-        id: "avbie1239ajbe",
         chapter: title,
         mangaka: user,
         mangaka_id: "pallethechu_id",

@@ -34,11 +34,11 @@ class MangaViewer extends Component {
     }
   }
   fetchChapterJson = async (chunkyName, chapter) => {
+    console.log(chapter);
     try {
       const response = await axios.get(
-        "https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/chapter?chapter_id=avbie1239ajbe"
+        `https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/chapter?chapter_id=${chapter}`
       );
-      console.log(response);
       let { mangaka, series_name, pages } = response.data.data;
       this.setState({ mangaka, series_name, fullPages: pages });
     } catch (err) {}
@@ -49,6 +49,7 @@ class MangaViewer extends Component {
     document.addEventListener("keydown", this.handleDirection);
   }
   render() {
+    console.log(this.props);
     let fullpages = this.state.fullPages.map((fullpage, index) => {
       if (this.state.currentPage < index) {
         return (

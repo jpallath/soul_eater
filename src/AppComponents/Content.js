@@ -15,14 +15,14 @@ class Content extends Component {
           chunkyName: "one_piece",
           chapter: "Romance Dawn The Dawn of Adventure",
           iconCover: `${configData.CLOUDTRAIL}/one_piece_icon.jpg`,
-          numberedChapter: "0001",
+          chapterValue: "7403365001294734293",
         },
         {
           series: "Shaman King",
           chunkyName: "shaman_king",
           chapter: "The Boy Who Dances with Ghost",
           iconCover: `${configData.CLOUDTRAIL}/shaman_king_icon.jpg`,
-          numberedChapter: "0001",
+          chapterValue: "3628981460990605327",
         },
         {
           series: "Dragonball",
@@ -61,7 +61,7 @@ class Content extends Component {
     let AbTFo1 = this.state.aboveTheFold1.map((series, index) => {
       return (
         <div className="ab_the_fold manga-window" key={index}>
-          <Link to={`series/${series.chunkyName}/${series.numberedChapter}`}>
+          <Link to={`series/${series.chunkyName}/${series.chapterValue}`}>
             <img src={series.iconCover} alt="" />
             <div className="series_data">
               <p>{series.series}</p>
@@ -75,7 +75,7 @@ class Content extends Component {
       return (
         <div className="ab_the_fold manga-window" key={index}>
           <Link
-            to={`series/${series.chunkyName}/${series.numberedChapter}`}
+            to={`series/${series.chunkyName}/${series.chapterValue}`}
             params={series.chunkyName}
           >
             <img src={series.iconCover} alt="" />

@@ -8,7 +8,14 @@ class Create extends Component {
     this.state = {
       user: "pallethechu",
       baseSeries: ["One Piece", "Naruto", "Dragon Ball"],
-      series: ["One Piece", "Naruto", "Dragon Ball"],
+      series: [
+        "One Piece",
+        "Shaman King",
+        "Dragon Ball",
+        "Naruto",
+        "Soul Eater",
+        "The Sealed Away Boy",
+      ],
       selectedFiles: [],
       selectedSeries: "",
       title: "",
@@ -65,7 +72,7 @@ class Create extends Component {
         mangaka: user,
         mangaka_id: "pallethechu_id",
         series_name: selectedSeries,
-        series_id: "one_piece_id",
+        series_id: "0",
         path: "xyz",
         numberOfPages: selectedFiles.length,
       }

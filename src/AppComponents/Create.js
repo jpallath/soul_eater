@@ -1,13 +1,21 @@
 import { Component } from "react";
 import axios from "axios";
-import Autocomplete from "./CreateComponents/Autocomplete";
+import FileSelect from "./CreateComponents/FileSelect";
+import FileManagement from "./CreateComponents/FileManagement";
 
 class Create extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: "pallethechu",
-      baseSeries: ["One Piece", "Naruto", "Dragon Ball"],
+      baseSeries: [
+        "One Piece",
+        "Shaman King",
+        "Dragon Ball",
+        "Naruto",
+        "Soul Eater",
+        "The Sealed Away Boy",
+      ],
       series: [
         "One Piece",
         "Shaman King",
@@ -27,6 +35,25 @@ class Create extends Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
   }
+
+  handleTitleChange = (title) => this.setState({ title: title });
+
+  handleFileInput = (files) => {
+    files = Object.entries(files);
+    let fileSources = files.map((file) => {
+      if (file[1].type.includes("image")) {
+        return { source: URL.createObjectURL(file[1]), fileData: file[1] };
+      } else {
+        return null;
+      }
+    });
+    this.setState({ selectedFiles: [...fileSources] });
+  };
+
+  onSelectSeries = (sery) => {
+    this.setState({ selectedSeries: sery });
+  };
+
   handleSeriesUpdate = (seriesText) => {
     seriesText = seriesText.toLowerCase();
     let { baseSeries } = this.state;
@@ -39,29 +66,10 @@ class Create extends Component {
       this.setState({ series: newSeries });
     }
   };
-  seriesSelect = (serie) => {
-    this.setState({ selectedSeries: serie });
-  };
-  seriesBlurred = (serie) => {
-    this.setState({ selectedSeries: serie });
-  };
-  handleFileInput = (files) => {
-    files = Object.entries(files);
-    let fileSources = files.map((file) => {
-      if (file[1].type.includes("image")) {
-        return { source: URL.createObjectURL(file[1]), fileData: file[1] };
-      } else {
-        return null;
-      }
-    });
-    this.setState({ selectedFiles: [...fileSources] });
-  };
-  onSelectSeries = (sery) => {
-    this.setState({ selectedSeries: sery });
-  };
-  handleTitleChange = (e) => this.setState({ title: e.target.value });
-  handleDescriptionChange = (e) =>
-    this.setState({ description: e.target.value });
+
+  handleDescriptionChange = (description) =>
+    this.setState({ description: description });
+
   handleUpload = async () => {
     let { selectedFiles, selectedSeries, title, user } = this.state;
     // before we upload each file to s3 we need to set up database space of the new series/chapter
@@ -105,70 +113,28 @@ class Create extends Component {
         });
     });
   };
+
   render() {
-    let { selectedFiles, series } = this.state;
-    let FilesComponent;
+    let { selectedFiles, series, title, description } = this.state;
+    let CreateComponent;
     if (selectedFiles.length === 0) {
-      FilesComponent = (
-        <div>
-          <input
-            type="file"
-            multiple
-            onChange={(e) => this.handleFileInput(e.target.files)}
-          />
-        </div>
-      );
+      CreateComponent = <FileSelect onFileSelect={this.handleFileInput} />;
     } else {
-      let seriesList = null;
-      if (series.length > 0) {
-        seriesList = (
-          <Autocomplete
-            series={series}
-            seriesChange={this.handleSeriesUpdate}
-            seriesSelect={this.seriesSelect}
-            seriesBlurred={this.seriesBlurred}
-          />
-        );
-      }
-      let previews = selectedFiles.map((file) => {
-        return (
-          <div className="upload_preview" key={file.fileData.name}>
-            <img src={file.source} alt={file.fileData.name} />
-            <p>{file.fileData.name}</p>
-          </div>
-        );
-      });
-      FilesComponent = (
-        <div>
-          <div className="upload_container">{previews}</div>
-          <div className="upload_meta">
-            <div>{seriesList}</div>
-            <div>
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                name="title"
-                id="title"
-                value={this.state.title}
-                onChange={this.handleTitleChange}
-              />
-            </div>
-            <div>
-              <textarea
-                name="description"
-                id="description"
-                cols="30"
-                rows="10"
-                value={this.state.description}
-                onChange={this.handleDescriptionChange}
-              ></textarea>
-            </div>
-          </div>
-          <button onClick={this.handleUpload}>Upload</button>
-        </div>
+      CreateComponent = (
+        <FileManagement
+          series={series}
+          setSeries={this.onSelectSeries}
+          selectedFiles={selectedFiles}
+          onSeriesTyped={this.handleSeriesUpdate}
+          title={title}
+          description={description}
+          titleChange={this.handleTitleChange}
+          handleDescriptionChange={this.handleDescriptionChange}
+          handleUpload={this.handleUpload}
+        />
       );
     }
-    return <div className="content">{FilesComponent}</div>;
+    return <div className="content">{CreateComponent}</div>;
   }
 }
 

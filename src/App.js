@@ -1,7 +1,7 @@
 import Content from "./AppComponents/Content";
 import MangaViewer from "./AppComponents/MangaViewer";
-import Sider from "./AppComponents/Sider";
 import Create from "./AppComponents/Create";
+import Menu from "./AppComponents/MenuComponents/Menu";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { Component } from "react";
@@ -23,10 +23,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Sider
-            triggerMenu={this.handleChange}
-            additionalClass={this.state.triggerMenu}
-          />
+          <Menu />
           <Switch>
             <Route path="/" exact>
               <Content />

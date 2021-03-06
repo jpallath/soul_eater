@@ -34,7 +34,6 @@ class MangaViewer extends Component {
     }
   }
   fetchChapterJson = async (chunkyName, chapter) => {
-    console.log(chapter);
     try {
       const response = await axios.get(
         `https://np9avsydf3.execute-api.us-east-1.amazonaws.com/stage/chapter?chapter_id=${chapter}`
